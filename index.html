@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trading Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="style.css" />
+    <script language="javascript" type="text/javascript" src="script.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Trading Dashboard</h1>
+        <p>วิเคราะห์ผลการเทรดและติดตามประสิทธิภาพ</p>
+      </div>
+
+      <div class="upload-section" id="uploadSection">
+        <div class="upload-area" id="uploadArea">
+          <div class="upload-text">🗂️ อัพโหลดไฟล์ CSV ข้อมูลการเทรด</div>
+          <small
+            >รองรับไฟล์ .csv (ควรมีคอลัมน์: Date, Profit/Loss, Entry,
+            Exit)</small
+          >
+          <input type="file" id="csvFile" accept=".csv" />
+        </div>
+      </div>
+
+      <div class="dashboard" id="dashboard" style="display: none">
+        <div class="stats-grid" id="statsGrid">
+          <!-- Stats will be inserted here -->
+        </div>
+
+        <div class="filters">
+          <div class="filter-group">
+            <label>📅 วันที่เริ่มต้น</label>
+            <input type="date" id="startDate" />
+          </div>
+          <div class="filter-group">
+            <label>📅 วันที่สิ้นสุด</label>
+            <input type="date" id="endDate" />
+          </div>
+          <div class="filter-group">
+            <button onclick="applyFilters()" class="stat-card">🔍 ค้นหา</button>
+            <button onclick="resetFilters()" class="stat-card">
+              🔄 รีเซ็ต
+            </button>
+          </div>
+        </div>
+
+        <div class="dashboard-extra">
+          <!-- Equity Curve -->
+          <div class="chart-container">
+            <h2>Equity Curve</h2>
+            <div
+              id="equityChartContainer"
+              style="
+                width: 100%;
+                height: clamp(200px, 40vw, 300px);
+                margin-bottom: 32px;
+              "
+            >
+              <canvas id="equityChart"></canvas>
+            </div>
+            <div
+              style="
+                width: 100%;
+                height: clamp(200px, 40vw, 300px);
+                margin-bottom: 32px;
+              "
+            >
+              <canvas id="dailyPLChart"></canvas>
+            </div>
+            <div style="width: 100%; height: clamp(200px, 40vw, 300px)">
+              <canvas id="dailyNetChart"></canvas>
+            </div>
+          </div>
+
+          <!-- PnL Calendar -->
+          <div class="calendar-container">
+            <div style="width: 100%;">
+              <h2>PnL Calendar</h2>
+              <div
+                id="pnlCalendar"
+                style="width: 100%; min-height: clamp(300px, 60vw, 350px)"
+              ></div>
+            </div>
+
+            <div>
+              <h2>Sumary Week</h2>
+              <div
+                id="pnlSumaryWeek"
+                style="width: 100%; min-height: clamp(300px, 60vw, 350px)"
+              ></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="data-table-container">
+          <div class="table-header">
+            <div class="table-title">📈 ข้อมูลการเทรด</div>
+            <div class="page-info" id="pageInfo">แสดง 0 จาก 0 รายการ</div>
+          </div>
+
+          <div class="table-wrapper">
+            <table id="dataTable">
+              <thead id="tableHeader">
+                <!-- Table header will be inserted here -->
+              </thead>
+              <tbody id="tableBody">
+                <tr>
+                  <td colspan="100%" class="loading">กำลังโหลดข้อมูล...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="pagination" id="pagination">
+            <!-- Pagination will be inserted here -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+ 
+  </body>
+</html>
